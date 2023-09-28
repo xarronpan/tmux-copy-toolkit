@@ -22,25 +22,11 @@ tmux bind-key -T copytk n run-shell -b "python3 $CURRENT_DIR/copytk.py easymotio
 tmux bind-key -T copy-mode-vi s run-shell -b "python3 $CURRENT_DIR/copytk.py easymotion-search --search-nkeys 1"
 tmux bind-key -T copy-mode s run-shell -b "python3 $CURRENT_DIR/copytk.py easymotion-search --search-nkeys 1"
 
-# copytk prefix: easycopy action bindings
-tmux bind-key -T copytk y run-shell -b "python3 $CURRENT_DIR/copytk.py easycopy --search-nkeys 1"
-tmux bind-key -T copytk Y run-shell -b "python3 $CURRENT_DIR/copytk.py easycopy --search-nkeys 2"
-
 # tmux prefix: easycopy action bindings
-tmux bind-key -T prefix S run-shell -b "python3 $CURRENT_DIR/copytk.py easycopy --search-nkeys 1"
-tmux bind-key -T prefix C-s run-shell -b "python3 $CURRENT_DIR/copytk.py easycopy --search-nkeys 1"
-
-# tmux prefix: linecopy action bindings
-tmux bind-key -T prefix W run-shell -b "python3 $CURRENT_DIR/copytk.py linecopy"
-tmux bind-key -T prefix C-w run-shell -b "python3 $CURRENT_DIR/copytk.py linecopy"
+tmux bind-key -T prefix f run-shell -b "python3 $CURRENT_DIR/copytk.py easycopy --search-nkeys 1"
 
 # tmux prefix: quickcopy action bindings
-tmux bind-key -T prefix Q run-shell -b "python3 $CURRENT_DIR/copytk.py quickcopy"
-tmux bind-key -T prefix C-q run-shell -b "python3 $CURRENT_DIR/copytk.py quickcopy"
-
-# tmux prefix: quickopen action bindings
-tmux bind-key -T prefix P run-shell -b "python3 $CURRENT_DIR/copytk.py quickopen"
-tmux bind-key -T prefix C-p run-shell -b "python3 $CURRENT_DIR/copytk.py quickopen"
+tmux bind-key -T prefix v run-shell -b "python3 $CURRENT_DIR/copytk.py quickcopy"
 
 # bindings to enter copytk prefix
 tmux bind-key -T copy-mode-vi S switch-client -T copytk
@@ -58,7 +44,8 @@ tmux set -g @copytk-quickcopy-match-0-1 abspaths
 tmux set -g @copytk-quickcopy-match-1-0 paths
 tmux set -g @copytk-quickcopy-match-1-1 filenames
 # Match IP addrs
-tmux set -g @copytk-quickcopy-match-1-2 '(?:^|\W)([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})(?:$|\W)'
+#tmux set -g @copytk-quickcopy-match-1-2 '(?:^|\W)([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})(?:$|\W)'
+tmux set -g @copytk-quickcopy-match-1-2 ''\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}
 # Match commands after the prompt
 tmux set -g @copytk-quickcopy-match-2-0 '(?m)^[^\n]{0,80}\$ ([a-zA-Z][a-zA-Z0-9_-]*(?: [^\n]*)?)$'
 # Match numbers
@@ -67,9 +54,9 @@ tmux set -g @copytk-quickcopy-match-3-0 '-?[0-9]+(?:\.[0-9]+)?(?:[eE]-?[0-9]+)?'
 tmux set -g @copytk-quickcopy-match-3-1 '"([^"\n]*)"'
 tmux set -g @copytk-quickcopy-match-3-2 ''\''([^'\'\\'n]*)'\'
 # Match whole lines
-tmux set -g @copytk-quickcopy-match-4-0 lines
+tmux set -g @copytk-quickcopy-match-4-0 '\w+'
 
-# Matches for quickopen
+# Matches for quickope
 tmux set -g @copytk-quickopen-match-0-0 urls
 tmux set -g @copytk-quickopen-match-0-1 abspaths
 
