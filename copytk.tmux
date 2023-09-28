@@ -39,22 +39,25 @@ if [ $NOMATCHES -eq 0 ]; then
 
 # Match URLs
 tmux set -g @copytk-quickcopy-match-0-0 urls
-# Match paths and filenames
-tmux set -g @copytk-quickcopy-match-0-1 abspaths
-tmux set -g @copytk-quickcopy-match-1-0 paths
-tmux set -g @copytk-quickcopy-match-1-1 filenames
-# Match IP addrs
-#tmux set -g @copytk-quickcopy-match-1-2 '(?:^|\W)([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})(?:$|\W)'
-tmux set -g @copytk-quickcopy-match-1-2 ''\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}
-# Match commands after the prompt
-tmux set -g @copytk-quickcopy-match-2-0 '(?m)^[^\n]{0,80}\$ ([a-zA-Z][a-zA-Z0-9_-]*(?: [^\n]*)?)$'
-# Match numbers
-tmux set -g @copytk-quickcopy-match-3-0 '-?[0-9]+(?:\.[0-9]+)?(?:[eE]-?[0-9]+)?'
-# Match quote-enclosed strings
-tmux set -g @copytk-quickcopy-match-3-1 '"([^"\n]*)"'
-tmux set -g @copytk-quickcopy-match-3-2 ''\''([^'\'\\'n]*)'\'
-# Match whole lines
-tmux set -g @copytk-quickcopy-match-4-0 '\w+'
+## Match paths and filenames
+tmux set -g @copytk-quickcopy-match-1-0 abspaths
+tmux set -g @copytk-quickcopy-match-1-1 paths
+tmux set -g @copytk-quickcopy-match-1-2 filenames
+## Match quote-enclosed strings
+tmux set -g @copytk-quickcopy-match-2-0 '"([^"\n]*)"'
+tmux set -g @copytk-quickcopy-match-2-1 ''\''([^'\'\\'n]*)'\'
+## Match IP addrs
+tmux set -g @copytk-quickcopy-match-3-0 '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'
+## UUId:
+tmux set -g @copytk-quickcopy-match-3-1 '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+## Hex
+tmux set -g @copytk-quickcopy-match-4-0 '(0x[0-9a-fA-F]+)'
+## Sha:
+tmux set -g @copytk-quickcopy-match-4-1 '[0-9a-f]{7,128}'
+## Digit:
+tmux set -g @copytk-quickcopy-match-5-0 '\s[0-9]{4,}\s'
+## Match whole lines
+tmux set -g @copytk-quickcopy-match-6-0 '\S{4,}'
 
 # Matches for quickope
 tmux set -g @copytk-quickopen-match-0-0 urls
