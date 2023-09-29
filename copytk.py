@@ -285,7 +285,7 @@ def get_pane_info(target=None, capture=False, capturej=False):
 
 def create_window_pane_of_size(size):
 	# Create a new window in the background
-	window_id_full = runtmux([ 'new-window', '-dP', '-F', '#{session_id}:#{window_id}', '/bin/cat' ], one=True)
+	window_id_full = runtmux([ 'new-window', '-dP', '-n', '[copy]', '-F', '#{session_id}:#{window_id}', '/bin/cat' ], one=True)
 	# Get the information about the new pane just created
 	pane = get_pane_info(window_id_full)
 	# If the width is greater than the target width, do a vertical split.
