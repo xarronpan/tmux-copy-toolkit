@@ -47,7 +47,7 @@ tmux set -g @copytk-quickcopy-match-1-0 urls
 ## Match paths and filenames
 tmux set -g @copytk-quickcopy-match-2-0 abspaths
 tmux set -g @copytk-quickcopy-match-2-1 paths
-tmux set -g @copytk-quickcopy-match-2-2 filenames
+#tmux set -g @copytk-quickcopy-match-2-2 filenames
 ## Match IP addrs
 tmux set -g @copytk-quickcopy-match-3-0 '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'
 ## UUId:
