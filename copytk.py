@@ -897,11 +897,15 @@ class EasyCopyAction(EasyMotionAction):
 		log('easycopy swapping in hidden pane', time=True)
 		swap_hidden_pane(True)
 
+		runtmux([ 'display-message', '-d', 360000, 'search for start' ])
 		# Input searches to get bounds
 		pos1 = self.do_easymotion('search')
 		if not pos1: return
+
 		self.highlight_ranges = [ (pos1, pos1) ]
 		self.reset(keep_highlight=True)
+
+		runtmux([ 'display-message', '-d', 360000, 'search for end' ])
 		# restrict second search to after first position
 		pos2 = self.do_easymotion(
 			'search',
