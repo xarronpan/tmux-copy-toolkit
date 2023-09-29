@@ -16,8 +16,8 @@ from datetime import datetime
 import time
 import platform
 
-#logdir = '/tmp/copytklog'
-logdir = None
+logdir = '/tmp/copytklog'
+#logdir = None
 
 python_command = 'python3'
 # Find full path to tmux command so it can be invoked without a shell
@@ -531,6 +531,11 @@ def execute_copy(data):
 	runshellcommand(command, sendstdin=data)
 	log('Copied data.')
 
+def execute_paste():
+	command = 'tmux paste-buffer -t ' + args.t
+	runshellcommand(command)
+	log('Pasted data.')
+
 #n = 10000
 #ls = gen_em_labels(n)
 #for i in range(n):
@@ -594,7 +599,7 @@ class PaneJumpAction:
 		# Set the contents to display
 		self.display_content_lines = process_pane_capture_lines(self.orig_pane['contents'], self.orig_pane['pane_size'][1])
 		self.reset()
-		
+
 	def reset(self, keep_highlight=False):
 		# Initialize properties for later
 		self.cur_label_pos = 0 # how many label chars have been keyed in
@@ -876,7 +881,7 @@ class EasyMotionAction(PaneJumpAction):
 		swap_hidden_pane(True)
 
 		loc = self.do_easymotion(action)
-		
+
 		# If a location was found, move cursor there in original pane
 		if loc:
 			log('match location: ' + str(loc), time=True)
@@ -1025,7 +1030,7 @@ class QuickCopyAction(PaneJumpAction):
 
 	def _matchobjs(self, tuplist, tier=0):
 		return [ self._matchobj(start, end, tier=tier) for start, end in tuplist ]
-	
+
 	def _find_lines_matches(self):
 		start = 0
 		for i, c in enumerate(self.copy_data):
@@ -1116,7 +1121,7 @@ class QuickCopyAction(PaneJumpAction):
 		# Returns a match object if one is selected. (actually a list of match objects that will all have same text)
 		# Returns None to cycle to next batch
 		# Throws ActionCanceled if canceled or invalid selection
-		
+
 		# Assign a code to each match in the batch
 		labels = []
 		match_text_label_map = {} # use this so matches with same text have same label
@@ -1128,7 +1133,7 @@ class QuickCopyAction(PaneJumpAction):
 				l = next(label_it)
 				labels.append(l)
 				match_text_label_map[match[2]] = l
-		
+
 		# Set up match_locations and highlights
 		self.match_locations = [ ( match[4][0], match[4][1], labels[i] ) for i, match in enumerate(batch) ]
 		line_width = self.orig_pane['pane_size'][0]
@@ -1138,7 +1143,7 @@ class QuickCopyAction(PaneJumpAction):
 					( min(match[4][0] + len(labels[i]) - self.cur_label_pos, line_width), match[4][1] ),
 					( match[5][0], match[5][1] )
 				)
-				for i, match in enumerate(batch) 
+				for i, match in enumerate(batch)
 			]
 		updatehl()
 		self.redraw()
@@ -1207,7 +1212,7 @@ class QuickCopyAction(PaneJumpAction):
 	def run(self):
 		selected_data, selected = self.run_quickselect()
 		execute_copy(selected_data)
-
+		execute_paste()
 		# Flash highlights
 		self.match_locations = None
 		hl_ranges = [ (match[4], match[5]) for match in selected ]
@@ -1217,7 +1222,7 @@ class QuickCopyAction(PaneJumpAction):
 
 
 class QuickOpenAction(QuickCopyAction):
-	
+
 	def __init__(self, stdscr):
 		super().__init__(stdscr, options_prefix='@copytk-quickopen-')
 		self.command_extra_env = self.load_env_file()
