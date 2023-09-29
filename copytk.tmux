@@ -23,10 +23,12 @@ tmux bind-key -T copy-mode-vi s run-shell -b "python3 $CURRENT_DIR/copytk.py eas
 tmux bind-key -T copy-mode s run-shell -b "python3 $CURRENT_DIR/copytk.py easymotion-search --search-nkeys 1"
 
 # tmux prefix: easycopy action bindings
-tmux bind-key -T prefix f run-shell -b "python3 $CURRENT_DIR/copytk.py easycopy --search-nkeys 1"
+tmux bind-key -T prefix f run-shell -b "python3 $CURRENT_DIR/copytk.py easycopy --search-nkeys 1 --paste 1"
+tmux bind-key -T prefix F run-shell -b "python3 $CURRENT_DIR/copytk.py easycopy --search-nkeys 1"
 
 # tmux prefix: quickcopy action bindings
-tmux bind-key -T prefix \. run-shell -b "python3 $CURRENT_DIR/copytk.py quickcopy"
+tmux bind-key -T prefix \. run-shell -b "python3 $CURRENT_DIR/copytk.py quickcopy --paste 1"
+tmux bind-key -T prefix \> run-shell -b "python3 $CURRENT_DIR/copytk.py quickcopy"
 
 # bindings to enter copytk prefix
 tmux bind-key -T copy-mode-vi S switch-client -T copytk

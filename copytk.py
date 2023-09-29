@@ -16,8 +16,8 @@ from datetime import datetime
 import time
 import platform
 
-logdir = '/tmp/copytklog'
-#logdir = None
+#logdir = '/tmp/copytklog'
+logdir = None
 
 python_command = 'python3'
 # Find full path to tmux command so it can be invoked without a shell
@@ -917,6 +917,8 @@ class EasyCopyAction(EasyMotionAction):
 		selected_data = self.copy_data[self.disp_copy_map[pos1] : self.disp_copy_map[pos2] + 1]
 		log('Copied: ' + selected_data)
 		execute_copy(selected_data)
+		if args.paste:
+			 execute_paste()
 
 		# Flash selected range as confirmation
 		self.flash_highlight_range((pos1, pos2))
@@ -1212,7 +1214,8 @@ class QuickCopyAction(PaneJumpAction):
 	def run(self):
 		selected_data, selected = self.run_quickselect()
 		execute_copy(selected_data)
-		execute_paste()
+		if args.paste:
+			 execute_paste()
 		# Flash highlights
 		self.match_locations = None
 		hl_ranges = [ (match[4], match[5]) for match in selected ]
@@ -1330,6 +1333,8 @@ def run_wrapper(main_action, args):
 		addopt('--search-nkeys', args.search_nkeys)
 	if args.search_direction:
 		addopt('--search-direction', args.search_direction)
+	if args.paste:
+		addopt('--paste', args.paste)
 
 	cmd += f' "{main_action}"'
 	#cmd += ' 2>/tmp/tm_wrap_log'
@@ -1345,6 +1350,7 @@ argp = argparse.ArgumentParser(description='tmux pane utils')
 argp.add_argument('-t', help='target pane')
 argp.add_argument('--search-nkeys', help='number of characters to key in to search')
 argp.add_argument('--search-direction', help='direction to search from cursor, both|forward|reverse')
+argp.add_argument('--paste', help='paste to prompt')
 
 # internal args
 argp.add_argument('--run-internal', action='store_true')
