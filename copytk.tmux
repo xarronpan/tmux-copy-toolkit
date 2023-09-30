@@ -54,12 +54,12 @@ tmux set -g @copytk-quickcopy-match-2-1 '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-
 ## Hex
 tmux set -g @copytk-quickcopy-match-3-0 '0x[0-9a-fA-F]+'
 ## Sha:
-tmux set -g @copytk-quickcopy-match-4-0 '[0-9a-f]{7,128}'
+tmux set -g @copytk-quickcopy-match-4-0 '[0-9a-f]{5,128}'
 ## Digit:
 tmux set -g @copytk-quickcopy-match-5-0 '[0-9]+'
 
 ## Path Section:
-tmux set -g @copytk-quickcopy-match-6-0 '/([^/]+)/'
+tmux set -g @copytk-quickcopy-match-6-0 '/([^/ \n]+)/'
 tmux set -g @copytk-quickcopy-match-6-1 filenames
 
 ## Match None Space
